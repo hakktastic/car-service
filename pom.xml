@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>nl.hakktastic.leaseacarapi</groupId>
-    <artifactId>carservice</artifactId>
+    <artifactId>car-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Car Service</name>
     <description>Car Service for the Lease a Car API</description>
