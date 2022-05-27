@@ -34,8 +34,15 @@ pipeline {
     }
     stages {
         stage('Build and test with Maven') {
+
+            IMAGE = readMavenPom().getArtifactId()
+            VERSION = readMavenPom().getVersion()
+            echo "IMAGE: ${IMAGE}"
+            echo "VERSION: ${VERSION}"
+
             steps {
                 container(name: 'maven') {
+
                     sh 'mvn -version'
                     sh 'mvn clean package -DskipTests'
                     sh 'ls -last'
