@@ -44,11 +44,10 @@ pipeline {
         }
         stage('Build container image with Kaniko') {
 
-            pom = readMavenPom(file: 'pom.xml')
-
-            def pom_version = pom.version
-
             steps {
+                pom = readMavenPom(file: 'pom.xml')
+                def pom_version = pom.version
+
                 container(name: 'kaniko', shell: '/busybox/sh') {
                     sh '''#!/busybox/sh
             echo "FROM jenkins/inbound-agent:latest" > Dockerfile
