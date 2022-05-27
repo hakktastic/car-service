@@ -1,5 +1,5 @@
-def TAG_SELECTOR = "UNINTIALIZED"
-def ARTIFACT_ID = "UNINTIALIZED"
+def TAG_SELECTOR = "latest"
+def ARTIFACT_ID = "latest"
 
 pipeline {
     agent {
@@ -58,9 +58,7 @@ pipeline {
                 IMG_TAG = "${TAG_SELECTOR}"
             }
             steps {
-                echo("ARTIFACT_ID=${IMG_ID}")
-                echo("TAG_SELECTOR=${IMG_TAG}")
-                echo("TEST")
+
                 container(name: 'kaniko', shell: '/busybox/sh') {
 
                     sh '''#!/busybox/sh
