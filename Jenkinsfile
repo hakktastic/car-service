@@ -37,7 +37,7 @@ pipeline {
             steps {
                 container(name: 'maven') {
                     sh 'mvn -version'
-                    sh 'mvn clean package'
+                    sh 'mvn clean package -DskipTests'
                     sh 'ls -last'
                 }
             }
