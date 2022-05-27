@@ -1,5 +1,5 @@
 def TAG_SELECTOR = "UNINTIALIZED"
-
+def ARTIFACT_ID = "UNINTIALIZED"
 pipeline {
     agent {
         kubernetes {
@@ -39,14 +39,15 @@ pipeline {
 
             steps {
                 container(name: 'maven') {
-                    sh 'mvn -version'
+
                     sh 'mvn clean package -DskipTests'
-                    sh 'ls -last'
 
                     script {
                         TAG_SELECTOR = readMavenPom().getVersion()
+                        ARTIFACT_ID = readMavenPom.getArtifactId
                     }
                     echo("TAG_SELECTOR=${TAG_SELECTOR}")
+                    echo("ARTIFACT_ID=${ARTIFACT_ID}")
                 }
             }
         }
@@ -57,9 +58,8 @@ pipeline {
                 container(name: 'kaniko', shell: '/busybox/sh') {
 
                     sh '''#!/busybox/sh
-            /kaniko/executor --context `pwd` --destination hakktastic/car-service:${TAG_SELECTOR} --customPlatform=linux/arm64
-          '''
-                    sh 'ls -last'
+                        /kaniko/executor --context `pwd` --destination hakktastic/car-service:${TAG_SELECTOR} --customPlatform=linux/arm64
+                    '''
                 }
             }
         }
