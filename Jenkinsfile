@@ -1,5 +1,10 @@
-def TAG_SELECTOR = "UNINTIALIZED"
-def ARTIFACT_ID = "UNINTIALIZED"
+//def TAG_SELECTOR = "UNINTIALIZED"
+//def ARTIFACT_ID = "UNINTIALIZED"
+
+environment {
+    TAG_SELECTOR = "test"
+}
+
 pipeline {
     agent {
         kubernetes {
@@ -31,12 +36,6 @@ pipeline {
                   items:
                     - key: .dockerconfigjson
                       path: config.json
-          - env:
-            resources:
-              limits: {}
-              requests:
-                memory: "1024Mi"
-                cpu: "250m"
         """
         }
     }
@@ -48,12 +47,12 @@ pipeline {
 
                     sh 'mvn clean package -DskipTests'
 
-                    script {
-                        TAG_SELECTOR = readMavenPom().getVersion()
-                        ARTIFACT_ID = readMavenPom().getArtifactId()
-                    }
-                    echo("TAG_SELECTOR=${TAG_SELECTOR}")
-                    echo("ARTIFACT_ID=${ARTIFACT_ID}")
+                    //script {
+                    //    TAG_SELECTOR = readMavenPom().getVersion()
+                    //    ARTIFACT_ID = readMavenPom().getArtifactId()
+                    //}
+                    //echo("TAG_SELECTOR=${TAG_SELECTOR}")
+                    //echo("ARTIFACT_ID=${ARTIFACT_ID}")
                 }
             }
         }
