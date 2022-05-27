@@ -48,6 +48,8 @@ pipeline {
             steps {
 
                 container(name: 'kaniko', shell: '/busybox/sh') {
+
+                    sh 'mvn -version'
                     sh '''#!/busybox/sh
             /kaniko/executor --context `pwd` --destination hakktastic/car-service:${pom_version} --customPlatform=linux/arm64
           '''
