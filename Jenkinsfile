@@ -50,7 +50,7 @@ pipeline {
 
                     sh '''#!/busybox/sh
             echo "FROM jenkins/inbound-agent:latest" > Dockerfile
-            /kaniko/executor --context `pwd` --destination hakktastic/car-service:${pom_version} --customPlatform=linux/arm64
+            /kaniko/executor --context `pwd` --dockerfile Dockerfile --destination hakktastic/car-service:${pom_version} --customPlatform=linux/arm64
           '''
                     sh 'ls -last'
                 }
