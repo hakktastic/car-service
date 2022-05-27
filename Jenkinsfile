@@ -48,7 +48,9 @@ pipeline {
 
                 container(name: 'kaniko', shell: '/busybox/sh') {
 
-                    sh '''#!/busybox/sh /kaniko/executor --context `pwd` --dockerfile Dockerfile --destination hakktastic/car-service:${pom_version} --customPlatform=linux/arm64'''
+                    sh '''#!/busybox/sh
+            /kaniko/executor --context `pwd` --destination hakktastic/car-service:${pom_version} --customPlatform=linux/arm64
+          '''
                     sh 'ls -last'
                 }
             }
