@@ -44,7 +44,7 @@ pipeline {
 
                     script {
                         TAG_SELECTOR = readMavenPom().getVersion()
-                        ARTIFACT_ID = readMavenPom.getArtifactId
+                        ARTIFACT_ID = readMavenPom().getArtifactId()
                     }
                     echo("TAG_SELECTOR=${TAG_SELECTOR}")
                     echo("ARTIFACT_ID=${ARTIFACT_ID}")
