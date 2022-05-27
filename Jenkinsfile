@@ -34,11 +34,11 @@ pipeline {
     }
     stages {
 
-        environment {
-            POM_VERSION = "latest"
-        }
-
         stage('Build and test with Maven') {
+
+            environment {
+                POM_VERSION = "latest"
+            }
 
             steps {
                 container(name: 'maven') {
