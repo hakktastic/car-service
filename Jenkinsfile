@@ -55,6 +55,9 @@ pipeline {
         }
         stage('Build container image with Kaniko') {
 
+            echo("TAG_SELECTOR=${TAG_SELECTOR}")
+            echo("ARTIFACT_ID=${ARTIFACT_ID}")
+
             environment {
                 IMG_TAG = TAG_SELECTOR
             }
