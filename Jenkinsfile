@@ -1,3 +1,5 @@
+def TAG_SELECTOR = "UNINTIALIZED"
+
 pipeline {
     agent {
         kubernetes {
@@ -40,6 +42,11 @@ pipeline {
                     sh 'mvn -version'
                     sh 'mvn clean package -DskipTests'
                     sh 'ls -last'
+
+                    script {
+                        TAG_SELECTOR = readMavenPom().getVersion()
+                    }
+                    echo("TAG_SELECTOR=${TAG_SELECTOR}")
                 }
             }
         }
@@ -49,7 +56,6 @@ pipeline {
 
                 container(name: 'kaniko', shell: '/busybox/sh') {
 
-                    sh 'mvn -version'
                     sh '''#!/busybox/sh
             /kaniko/executor --context `pwd` --destination hakktastic/car-service:${pom_version} --customPlatform=linux/arm64
           '''
