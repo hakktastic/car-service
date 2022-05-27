@@ -57,7 +57,7 @@ pipeline {
 
 
             environment {
-                IMG_TAG = TAG_SELECTOR
+                IMG_TAG = ${TAG_SELECTOR}
             }
             steps {
 
