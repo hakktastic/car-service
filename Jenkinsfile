@@ -1,9 +1,5 @@
-//def TAG_SELECTOR = "UNINTIALIZED"
-//def ARTIFACT_ID = "UNINTIALIZED"
-
-environment {
-    TAG_SELECTOR = "test"
-}
+def TAG_SELECTOR = "UNINTIALIZED"
+def ARTIFACT_ID = "UNINTIALIZED"
 
 pipeline {
     agent {
@@ -47,23 +43,27 @@ pipeline {
 
                     sh 'mvn clean package -DskipTests'
 
-                    //script {
-                    //    TAG_SELECTOR = readMavenPom().getVersion()
-                    //    ARTIFACT_ID = readMavenPom().getArtifactId()
-                    //}
-                    //echo("TAG_SELECTOR=${TAG_SELECTOR}")
-                    //echo("ARTIFACT_ID=${ARTIFACT_ID}")
+                    script {
+                        TAG_SELECTOR = readMavenPom().getVersion()
+                        ARTIFACT_ID = readMavenPom().getArtifactId()
+                    }
+
+                    echo("TAG_SELECTOR=${TAG_SELECTOR}")
+                    echo("ARTIFACT_ID=${ARTIFACT_ID}")
                 }
             }
         }
         stage('Build container image with Kaniko') {
 
+            environment {
+                IMG_TAG = TAG_SELECTOR
+            }
             steps {
 
                 container(name: 'kaniko', shell: '/busybox/sh') {
 
                     sh '''#!/busybox/sh
-                        /kaniko/executor --context `pwd` --destination hakktastic/car-service:${TAG_SELECTOR} --customPlatform=linux/arm64
+                        /kaniko/executor --context `pwd` --destination hakktastic/car-service:${IMG_TAG} --customPlatform=linux/arm64
                     '''
                 }
             }
