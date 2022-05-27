@@ -54,19 +54,18 @@ pipeline {
         stage('Build container image with Kaniko') {
 
 
-            //environment {
-              //  IMG_TAG = "${TAG_SELECTOR}"
-            //}
+            environment {
+                IMG_ID = "${ARTIFACT_ID}"
+                IMG_TAG = "${TAG_SELECTOR}"
+            }
             steps {
-
-                echo("TAG_SELECTOR=${TAG_SELECTOR}")
-                echo("ARTIFACT_ID=${ARTIFACT_ID}")
-                echo("TEST=${IMG_TAG}")
+                echo("ARTIFACT_ID=${IMG_ID}")
+                echo("TAG_SELECTOR=${IMG_TAG}")
 
                 container(name: 'kaniko', shell: '/busybox/sh') {
 
                     sh '''#!/busybox/sh
-                        /kaniko/executor --context `pwd` --destination hakktastic/car-service:${IMG_TAG} --customPlatform=linux/arm64
+                        /kaniko/executor --context `pwd` --destination hakktastic/${IMG_ID}:${IMG_TAG} --customPlatform=linux/arm64
                     '''
                 }
             }
