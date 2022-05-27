@@ -46,19 +46,17 @@ pipeline {
                     script {
                         TAG_SELECTOR = readMavenPom().getVersion()
                         ARTIFACT_ID = readMavenPom().getArtifactId()
+                        IMG_TAG = readMavenPom().getVersion()
                     }
-
-                    echo("TAG_SELECTOR=${TAG_SELECTOR}")
-                    echo("ARTIFACT_ID=${ARTIFACT_ID}")
                 }
             }
         }
         stage('Build container image with Kaniko') {
 
 
-            environment {
-                IMG_TAG = "${TAG_SELECTOR}"
-            }
+            //environment {
+              //  IMG_TAG = "${TAG_SELECTOR}"
+            //}
             steps {
 
                 echo("TAG_SELECTOR=${TAG_SELECTOR}")
