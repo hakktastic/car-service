@@ -7,7 +7,7 @@ pipeline {
           containers:
           - name: kaniko
             image: gcr.io/kaniko-project/executor:debug
-            imagePullPolicy: Always
+            imagePullPolicy: IfNotPresent
             command:
             - sleep
             args:
@@ -36,15 +36,8 @@ pipeline {
 
         stage('Build and test with Maven') {
 
-            environment {
-                POM_VERSION = "latest"
-            }
-
             steps {
                 container(name: 'maven') {
-
-                    withEnv(["POM_VERSION=0.0.1-SNAPSHOT"]) {}
-
                     sh 'mvn -version'
                     sh 'mvn clean package -DskipTests'
                     sh 'ls -last'
