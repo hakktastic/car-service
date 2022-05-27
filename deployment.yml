@@ -19,23 +19,23 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - image: hakktastic/car-service:latest
+      - image: hakktastic/car-service:0.0.1-SNAPSHOT
         imagePullPolicy: Always
         name: car-service
         ports:
         - containerPort: 8082
           protocol: TCP
         livenessProbe:
-          httpGet:  
-            path: /car-service/actuator/health/liveness  
-            port: 8082  
-          initialDelaySeconds: 60 
+          httpGet:
+            path: /car-service/actuator/health/liveness
+            port: 8082
+          initialDelaySeconds: 60
           periodSeconds: 5
-          failureThreshold: 10 
-        readinessProbe:  
-          httpGet:  
-            path: /car-service/actuator/health/readiness  
-            port: 8082  
+          failureThreshold: 10
+        readinessProbe:
+          httpGet:
+            path: /car-service/actuator/health/readiness
+            port: 8082
           initialDelaySeconds: 60
           periodSeconds: 5
           failureThreshold: 10
