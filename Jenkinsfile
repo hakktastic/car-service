@@ -31,6 +31,12 @@ pipeline {
                   items:
                     - key: .dockerconfigjson
                       path: config.json
+          - env:
+            resources:
+              limits: {}
+              requests:
+                memory: "1024Mi"
+                cpu: "250m"
         """
         }
     }
