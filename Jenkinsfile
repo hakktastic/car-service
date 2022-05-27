@@ -46,7 +46,6 @@ pipeline {
                     script {
                         TAG_SELECTOR = readMavenPom().getVersion()
                         ARTIFACT_ID = readMavenPom().getArtifactId()
-                        IMG_TAG = readMavenPom().getVersion()
                     }
                 }
             }
@@ -61,7 +60,7 @@ pipeline {
             steps {
                 echo("ARTIFACT_ID=${IMG_ID}")
                 echo("TAG_SELECTOR=${IMG_TAG}")
-
+                echo("TEST")
                 container(name: 'kaniko', shell: '/busybox/sh') {
 
                     sh '''#!/busybox/sh
