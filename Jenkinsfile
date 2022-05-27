@@ -45,10 +45,9 @@ pipeline {
         stage('Build container image with Kaniko') {
 
             steps {
-                pom = readMavenPom(file: 'pom.xml')
-                def pom_version = pom.version
-
                 container(name: 'kaniko', shell: '/busybox/sh') {
+                    pom = readMavenPom(file: 'pom.xml')
+                    def pom_version = pom.version
                     sh '''#!/busybox/sh
             echo "FROM jenkins/inbound-agent:latest" > Dockerfile
             /kaniko/executor --context `pwd` --destination hakktastic/car-service:${pom.version} --customPlatform=linux/arm64
