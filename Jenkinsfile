@@ -33,15 +33,17 @@ pipeline {
         }
     }
     stages {
-        stage('Build and test with Maven') {
 
-            IMAGE = readMavenPom().getArtifactId()
-            VERSION = readMavenPom().getVersion()
-            echo "IMAGE: ${IMAGE}"
-            echo "VERSION: ${VERSION}"
+        environment {
+            POM_VERSION = "latest"
+        }
+
+        stage('Build and test with Maven') {
 
             steps {
                 container(name: 'maven') {
+
+                    withEnv(["POM_VERSION=0.0.1-SNAPSHOT"]) {}
 
                     sh 'mvn -version'
                     sh 'mvn clean package -DskipTests'
@@ -54,9 +56,8 @@ pipeline {
             steps {
 
                 container(name: 'kaniko', shell: '/busybox/sh') {
-
                     sh '''#!/busybox/sh
-            /kaniko/executor --context `pwd` --destination hakktastic/car-service:${pom_version} --customPlatform=linux/arm64
+            /kaniko/executor --context `pwd` --destination hakktastic/car-service:${env.POM_VERSION} --customPlatform=linux/arm64
           '''
                     sh 'ls -last'
                 }
