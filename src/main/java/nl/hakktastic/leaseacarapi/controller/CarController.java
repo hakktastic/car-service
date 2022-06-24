@@ -2,7 +2,7 @@ package nl.hakktastic.leaseacarapi.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.hakktastic.leaseacarapi.entity.Car;
-import nl.hakktastic.leaseacarapi.repository.CarRepository;
+import nl.hakktastic.leaseacarapi.service.CarService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Rest Controller for Car Service.
@@ -22,8 +21,9 @@ import java.util.Optional;
 public class CarController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
-    private CarRepository repository;
+    private CarService carService;
 
     /**
      * Create Car Entity.
@@ -34,8 +34,14 @@ public class CarController {
     @PostMapping(path = "/cars", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Car> createCar(@RequestBody Car car) {
 
-        final Car carEntity = repository.save(car);
-        return new ResponseEntity<>(carEntity, HttpStatus.CREATED);
+        logger.info("create car --> starting creation of car -> {}", car);
+
+        var optionalCar = carService.createCar(car);
+        var status = (optionalCar.isPresent()) ? HttpStatus.CREATED : HttpStatus.NOT_FOUND;
+
+        logger.info("create car --> response code -> {} ({}) - response body -> {} ", status.value(), status.name(), optionalCar.orElseGet(() -> null));
+
+        return new ResponseEntity<>(optionalCar.orElseGet(() -> null), status);
     }
 
     /**
@@ -45,11 +51,15 @@ public class CarController {
      * @return Returns HTTP Response Code 202 Accepted if Car is deleted
      */
     @DeleteMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Car> deleteCar(@PathVariable int id) {
+    public ResponseEntity<Object> deleteCar(@PathVariable int id) {
 
-        final Car carEntity = repository.getReferenceById(id);
-        repository.delete(carEntity);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        logger.info("delete car --> starting deletion of car with id-> {}", id);
+
+        carService.deleteCar(id);
+
+        logger.info("delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
+
+        return new ResponseEntity<>("Car deleted successsfully", HttpStatus.OK);
     }
 
     /**
@@ -61,23 +71,16 @@ public class CarController {
     @GetMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Car> getCar(@PathVariable int id) {
 
-        final ResponseEntity<Car> responseEntity;
-        final Optional<Car> optionalCarEntity = repository.findById(id);
+        logger.info("get car --> starting retrieval of car with id -> {}", id);
 
-        if (optionalCarEntity.isPresent()) {
+        var optionalCar = carService.getSingleCar(id);
+        var status = (optionalCar.isPresent()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
-            responseEntity = new ResponseEntity<>(optionalCarEntity.get(), HttpStatus.OK);
+        logger.info("get car --> response code -> {} ({}) - response body -> {} ", status.value(), status.name(), optionalCar.orElseGet(() -> null));
 
-            logger.info("Get Customer by ID --> Response Code -> {} - Response -> {} ",
-                    responseEntity.getStatusCodeValue(), responseEntity.getBody());
-
-        } else {
-
-            responseEntity = new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
-
-        return responseEntity;
+        return new ResponseEntity<>(optionalCar.orElseGet(() -> null), status);
     }
+
 
     /**
      * Get all Car Entities.
@@ -87,16 +90,14 @@ public class CarController {
     @GetMapping(path = "/cars", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Car>> getCars() {
 
-        final List<Car> careEntityList = repository.findAll();
+        logger.info("get cars --> starting retrieval of all cars");
 
-        if (!careEntityList.isEmpty()) {
+        var carEntityList = carService.getAllCars();
+        HttpStatus status = (!carEntityList.isEmpty()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
-            return new ResponseEntity<>(careEntityList, HttpStatus.OK);
+        logger.info("get cars --> response code -> {} ({}) - nr of found cars -> {}", status.value(), status.name(), (!(carEntityList.isEmpty())? carEntityList.size() : "-"));
 
-        } else {
-
-            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-        }
+        return new ResponseEntity<>(carEntityList, status);
     }
 
 }
