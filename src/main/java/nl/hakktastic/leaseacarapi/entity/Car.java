@@ -30,18 +30,19 @@ public class Car {
     /**
      * Default Constructor.
      */
-    public Car() {}
+    public Car() {
+    }
 
     /**
      * Constructor.
      *
-     * @param make Make of Car
-     * @param model Model of Car
-     * @param version Version of Car
+     * @param make          Make of Car
+     * @param model         Model of Car
+     * @param version       Version of Car
      * @param numberOfDoors Number of Doors of Car
-     * @param grossPrice Gross Price of Car
-     * @param nettPrice Nett Price of Car
-     * @param hp HP of Car
+     * @param grossPrice    Gross Price of Car
+     * @param nettPrice     Nett Price of Car
+     * @param hp            HP of Car
      */
     public Car(String make, String model, String version, int numberOfDoors,
                double grossPrice, double nettPrice, int hp) {
