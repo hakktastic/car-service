@@ -3,8 +3,6 @@ package nl.hakktastic.leaseacarapi.controller;
 import lombok.extern.slf4j.Slf4j;
 import nl.hakktastic.leaseacarapi.entity.Car;
 import nl.hakktastic.leaseacarapi.service.CarService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,8 +18,6 @@ import java.util.List;
 @Slf4j
 public class CarController {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
     @Autowired
     private CarService carService;
 
@@ -34,12 +30,12 @@ public class CarController {
     @PostMapping(path = "/cars", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Car> createCar(@RequestBody Car car) {
 
-        logger.info("create car --> starting creation of car -> {}", car);
+        log.info("create car --> starting creation of car -> {}", car);
 
         var optionalCar = carService.createCar(car);
         var status = (optionalCar.isPresent()) ? HttpStatus.CREATED : HttpStatus.NOT_FOUND;
 
-        logger.info("create car --> response code -> {} ({}) - response body -> {} ", status.value(), status.name(), optionalCar.orElseGet(() -> null));
+        log.info("create car --> response code -> {} ({}) - response body -> {} ", status.value(), status.name(), optionalCar.orElseGet(() -> null));
 
         return new ResponseEntity<>(optionalCar.orElseGet(() -> null), status);
     }
@@ -53,11 +49,11 @@ public class CarController {
     @DeleteMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> deleteCar(@PathVariable int id) {
 
-        logger.info("delete car --> starting deletion of car with id-> {}", id);
+        log.info("delete car --> starting deletion of car with id-> {}", id);
 
         carService.deleteCar(id);
 
-        logger.info("delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
+        log.info("delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
 
         return new ResponseEntity<>("Car deleted successsfully", HttpStatus.OK);
     }
@@ -71,12 +67,12 @@ public class CarController {
     @GetMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Car> getCar(@PathVariable int id) {
 
-        logger.info("get car --> starting retrieval of car with id -> {}", id);
+        log.info("get car --> starting retrieval of car with id -> {}", id);
 
         var optionalCar = carService.getSingleCar(id);
         var status = (optionalCar.isPresent()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
-        logger.info("get car --> response code -> {} ({}) - response body -> {} ", status.value(), status.name(), optionalCar.orElseGet(() -> null));
+        log.info("get car --> response code -> {} ({}) - response body -> {} ", status.value(), status.name(), optionalCar.orElseGet(() -> null));
 
         return new ResponseEntity<>(optionalCar.orElseGet(() -> null), status);
     }
@@ -90,12 +86,12 @@ public class CarController {
     @GetMapping(path = "/cars", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Car>> getCars() {
 
-        logger.info("get cars --> starting retrieval of all cars");
+        log.info("get cars --> starting retrieval of all cars");
 
         var carEntityList = carService.getAllCars();
         HttpStatus status = (!carEntityList.isEmpty()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
-        logger.info("get cars --> response code -> {} ({}) - nr of found cars -> {}", status.value(), status.name(), (!(carEntityList.isEmpty())? carEntityList.size() : "-"));
+        log.info("get cars --> response code -> {} ({}) - nr of found cars -> {}", status.value(), status.name(), (!(carEntityList.isEmpty())? carEntityList.size() : "-"));
 
         return new ResponseEntity<>(carEntityList, status);
     }
