@@ -8,53 +8,52 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Service object to manage {@link Car} entities.
- */
+/** Service object to manage {@link Car} entities. */
 @Service
 public class CarService {
-    @Autowired
-    private CarRepository repository;
 
-    /**
-     * Create a {@link Car} entity.
-     *
-     * @param car @{@link Car}
-     * @return Returns the car created as an {@link Optional}}
-     */
-    public Optional<Car> createCar(Car car) {
+  @Autowired private CarRepository repository;
 
-        return Optional.of(repository.save(car));
-    }
+  /**
+   * Create a {@link Car} entity.
+   *
+   * @param car @{@link Car}
+   * @return Returns the car created as an {@link Optional}}
+   */
+  public Optional<Car> createCar(Car car) {
 
-    /**
-     * Delete a {@link Car} entity.
-     *
-     * @param id ID of the car to be deleted
-     */
-    public void deleteCar(int id) {
+    return Optional.of(this.repository.save(car));
+  }
 
-        var carEntity = repository.getReferenceById(id);
-        repository.delete(carEntity);
-    }
+  /**
+   * Delete a {@link Car} entity.
+   *
+   * @param id ID of the car to be deleted
+   */
+  public void deleteCar(int id) {
 
-    /**
-     * Find a single {@link Car} entity with provided ID.
-     * @param id ID of the car to be returned
-     * @return Returns an {@link Optional} containing the {@link Car} entity
-     */
-    public Optional<Car> getSingleCar(int id) {
+    var carEntity = this.repository.getReferenceById(id);
+    this.repository.delete(carEntity);
+  }
 
-        return repository.findById(id);
-    }
+  /**
+   * Find a single {@link Car} entity with provided ID.
+   *
+   * @param id ID of the car to be returned
+   * @return Returns an {@link Optional} containing the {@link Car} entity
+   */
+  public Optional<Car> getSingleCar(int id) {
 
-    /**
-     * Get all {@link Car} entities from the repository.
-     *
-     * @return Returns a {@link List} with found {@link Car} entities
-     */
-    public List<Car> getAllCars() {
+    return this.repository.findById(id);
+  }
 
-        return repository.findAll();
-    }
+  /**
+   * Get all {@link Car} entities from the repository.
+   *
+   * @return Returns a {@link List} with found {@link Car} entities
+   */
+  public List<Car> getAllCars() {
+
+    return this.repository.findAll();
+  }
 }
