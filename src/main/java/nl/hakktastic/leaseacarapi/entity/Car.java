@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Positive;
 
 /** JPA Car Entity. */
 @Data
@@ -34,22 +35,16 @@ public class Car {
   private String model;
 
   @NotNull
-  @Length(min = 1, max = 50)
+  @Length(min = 2, max = 50)
   private String version;
 
   @NotNull
-  @Size(min = 2)
+  @Range(min = 2, max = 5)
   private int numberOfDoors;
 
-  @NotNull
-  @Length(min = 1)
-  private double grossPrice;
+  @NotNull @Positive private double grossPrice;
 
-  @NotNull
-  @Length(min = 1)
-  private double nettPrice;
+  @NotNull @Positive private double nettPrice;
 
-  @NotNull
-  @Length(min = 1)
-  private int hp;
+  @NotNull @Positive private int hp;
 }
