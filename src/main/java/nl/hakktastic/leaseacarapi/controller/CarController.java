@@ -53,12 +53,24 @@ public class CarController {
 
     log.info("delete car --> starting deletion of car with id-> {}", id);
 
-    this.carService.deleteCar(id);
+    var isCarDeleted = carService.deleteCar(id);
 
-    log.info(
-        "delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
+    if (isCarDeleted) {
 
-    return new ResponseEntity<>("Car deleted successsfully", HttpStatus.OK);
+      log.info(
+          "delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
+
+      return new ResponseEntity<>("Car deleted successfully", HttpStatus.OK);
+    } else {
+
+      log.info(
+          "delete car --> response code -> {} ({})",
+          HttpStatus.NOT_FOUND.value(),
+          HttpStatus.NOT_FOUND.name());
+
+      return new ResponseEntity<>(
+          "Unable to delete Car because unable to find Car with provided ID", HttpStatus.NOT_FOUND);
+    }
   }
 
   /**
