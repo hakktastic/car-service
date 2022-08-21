@@ -46,7 +46,7 @@ public class CarController {
    * Delete Car Entity.
    *
    * @param id ID of Car Entity
-   * @return Returns HTTP Response Code 202 Accepted if Car is deleted
+   * @return Returns HTTP Response OK if Car is deleted, otherwise NO_CONTENT
    */
   @DeleteMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Object> deleteCar(@PathVariable @Valid int id) {
@@ -54,23 +54,11 @@ public class CarController {
     log.info("delete car --> starting deletion of car with id-> {}", id);
 
     var isCarDeleted = carService.deleteCar(id);
+    var status = (isCarDeleted) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
-    if (isCarDeleted) {
+    log.info("delete car --> response code -> {} ({})", status.value(), status.name());
 
-      log.info(
-          "delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
-
-      return new ResponseEntity<>("Car deleted successfully", HttpStatus.OK);
-    } else {
-
-      log.info(
-          "delete car --> response code -> {} ({})",
-          HttpStatus.NOT_FOUND.value(),
-          HttpStatus.NOT_FOUND.name());
-
-      return new ResponseEntity<>(
-          "Unable to delete Car because unable to find Car with provided ID", HttpStatus.NOT_FOUND);
-    }
+    return new ResponseEntity<>("", status);
   }
 
   /**
@@ -85,7 +73,7 @@ public class CarController {
     log.info("get car --> starting retrieval of car with id -> {}", id);
 
     var optionalCar = this.carService.getSingleCar(id);
-    var status = (optionalCar.isPresent()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
+    var status = (optionalCar.isPresent()) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
     log.info(
         "get car --> response code -> {} ({}) - response body -> {} ",
@@ -107,7 +95,7 @@ public class CarController {
     log.info("get cars --> starting retrieval of all cars");
 
     var carEntityList = this.carService.getAllCars();
-    HttpStatus status = (!carEntityList.isEmpty()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
+    HttpStatus status = (!carEntityList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
     log.info(
         "get cars --> response code -> {} ({}) - nr of found cars -> {}",
