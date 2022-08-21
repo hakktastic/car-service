@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /** Rest Controller for Car Service. */
@@ -25,11 +26,11 @@ public class CarController {
    * @return Returns a {@link Car} Entity
    */
   @PostMapping(path = "/cars", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Car> createCar(@RequestBody Car car) {
+  public ResponseEntity<Car> createCar(@RequestBody @Valid Car car) {
 
     log.info("create car --> starting creation of car -> {}", car);
 
-    var optionalCar = carService.createCar(car);
+    var optionalCar = this.carService.createCar(car);
     var status = (optionalCar.isPresent()) ? HttpStatus.CREATED : HttpStatus.NOT_FOUND;
 
     log.info(
@@ -48,11 +49,11 @@ public class CarController {
    * @return Returns HTTP Response Code 202 Accepted if Car is deleted
    */
   @DeleteMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Object> deleteCar(@PathVariable int id) {
+  public ResponseEntity<Object> deleteCar(@PathVariable @Valid int id) {
 
     log.info("delete car --> starting deletion of car with id-> {}", id);
 
-    carService.deleteCar(id);
+    this.carService.deleteCar(id);
 
     log.info(
         "delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
@@ -67,11 +68,11 @@ public class CarController {
    * @return Returns a {@link Car} entity
    */
   @GetMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Car> getCar(@PathVariable int id) {
+  public ResponseEntity<Car> getCar(@PathVariable @Valid int id) {
 
     log.info("get car --> starting retrieval of car with id -> {}", id);
 
-    var optionalCar = carService.getSingleCar(id);
+    var optionalCar = this.carService.getSingleCar(id);
     var status = (optionalCar.isPresent()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
     log.info(
@@ -93,7 +94,7 @@ public class CarController {
 
     log.info("get cars --> starting retrieval of all cars");
 
-    var carEntityList = carService.getAllCars();
+    var carEntityList = this.carService.getAllCars();
     HttpStatus status = (!carEntityList.isEmpty()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
 
     log.info(
