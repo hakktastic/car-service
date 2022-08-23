@@ -10,8 +10,7 @@ import org.springframework.http.HttpStatus;
 
 import java.util.Optional;
 
-import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NO_ARGS;
-import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -27,20 +26,9 @@ public class CarControllerUnitTest {
     when(carService.createCar(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER))
         .thenReturn(Optional.of(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER));
 
-    var carResponseEntity = carController.createCar(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER);
-    assertThat(carResponseEntity).isNotNull();
-    assertThat(carResponseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-
-    var car = carResponseEntity.getBody();
-    assertThat(car).isNotNull();
-    assertThat(car.getMake()).isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER.getMake());
-    assertThat(car.getModel()).isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER.getModel());
-    assertThat(car.getVersion()).isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER.getVersion());
-    assertThat(car.getNumberOfDoors())
-        .isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER.getNumberOfDoors());
-    assertThat(car.getGrossPrice()).isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER.getGrossPrice());
-    assertThat(car.getNettPrice()).isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER.getNettPrice());
-    assertThat(car.getHp()).isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER.getHp());
+    var responseEntity = carController.createCar(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER);
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    assertThat(responseEntity.getBody()).isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER);
   }
 
   @Test
@@ -48,43 +36,120 @@ public class CarControllerUnitTest {
 
     when(carService.createCar(CAR_OBJECT_INVALID_NO_ARGS)).thenReturn(Optional.empty());
 
-    var carResponseEntity = carController.createCar(CAR_OBJECT_INVALID_NO_ARGS);
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_NO_ARGS);
 
-    assertThat(carResponseEntity).isNotNull();
-    assertThat(carResponseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
-    assertThat(carResponseEntity.getBody()).isNull();
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
   }
 
   @Test
-  public void givenInvalidMake_whenCreateCar_thenReturnBadRequest() throws Exception {}
+  public void givenTooShortMake_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_MAKE_INVALID_TOO_SHORT))
+        .thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_MAKE_INVALID_TOO_SHORT);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenInvalidModel_whenCreateCar_thenReturnBadRequest() throws Exception {}
+  public void givenTooLongMake_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_MAKE_INVALID_TOO_LONG))
+        .thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_MAKE_INVALID_TOO_LONG);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenInvalidVersion_whenCreateCar_thenReturnBadRequest() throws Exception {}
+  public void givenTooShortModel_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_MODEL_TOO_SHORT)).thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_MODEL_TOO_SHORT);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenInvalidNrOfDoors_whenCreateCar_thenReturnBadRequest() throws Exception {}
+  public void givenTooLongModel_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_MODEL_TOO_LONG)).thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_MODEL_TOO_LONG);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenInvalidGrossPrice_whenCreateCar_thenReturnBadRequest() throws Exception {}
+  public void givenTooShortVersion_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_VERSION_TOO_SHORT)).thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_VERSION_TOO_SHORT);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenInvalidNettPrice_whenCreateCar_thenReturnBadRequest() throws Exception {}
+  public void givenTooLongVersion_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_VERSION_TOO_LONG)).thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_VERSION_TOO_LONG);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenValidId_whenDeleteCar_thenReturnOK() throws Exception {}
+  public void givenTooFewNrOfDoors_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_NR_OF_DOORS_1)).thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_NR_OF_DOORS_1);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenInvalidId_whenDeleteCar_thenReturnNotFound() throws Exception {}
+  public void givenTooManyNrOfDoors_whenCreateCar_thenReturnNotFound() {
+
+    when(carService.createCar(CAR_OBJECT_INVALID_NR_OF_DOORS_6)).thenReturn(Optional.empty());
+
+    var responseEntity = carController.createCar(CAR_OBJECT_INVALID_NR_OF_DOORS_6);
+
+    assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    assertThat(responseEntity.getBody()).isNull();
+  }
 
   @Test
-  public void givenValidId_whenGetCar_thenReturnOK() throws Exception {}
+  public void givenInvalidGrossPrice_whenCreateCar_thenReturnNotFound() {}
 
   @Test
-  public void givenInvalidId_whenGetCar_thenReturnNotFound() throws Exception {}
+  public void givenInvalidNettPrice_whenCreateCar_thenReturnNotFound() {}
 
   @Test
-  public void givenCarsExistInRepository_whenGetCars_thenReturnOK() throws Exception {}
+  public void givenValidId_whenDeleteCar_thenReturnOK() {}
+
+  @Test
+  public void givenInvalidId_whenDeleteCar_thenReturnNotFound() {}
+
+  @Test
+  public void givenValidId_whenGetCar_thenReturnOK() {}
+
+  @Test
+  public void givenInvalidId_whenGetCar_thenReturnNotFound() {}
+
+  @Test
+  public void givenCarsExistInRepository_whenGetCars_thenReturnOK() {}
 }
