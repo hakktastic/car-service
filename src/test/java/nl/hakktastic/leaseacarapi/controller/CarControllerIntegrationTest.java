@@ -174,6 +174,17 @@ public class CarControllerIntegrationTest {
   }
 
   @Test
+  public void givenInvalidHorsePower_whenCreateCar_thenReturnBadRequest() throws Exception {
+
+    var jsonStrCar = new Gson().toJson(CAR_OBJECT_INVALID_HP);
+
+    mockMvc
+        .perform(
+            post(URL_TEMPLATE_CARS).contentType(MediaType.APPLICATION_JSON).content(jsonStrCar))
+        .andExpect(status().isBadRequest());
+  }
+
+  @Test
   public void givenValidId_whenDeleteCar_thenReturnOK() throws Exception {
 
     mockMvc
