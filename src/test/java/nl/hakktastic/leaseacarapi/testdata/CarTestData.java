@@ -7,8 +7,8 @@ public final class CarTestData {
   /** Car ID. */
   public static final int CAR_ID_VALID_1001 = 1001;
 
-  public static final int CAR_ID_VALID_2891 = 2891;
-  public static final int CAR_ID_VALID_11329 = 11329;
+  public static final int CAR_ID_VALID_2891_FORD = 2891;
+  public static final int CAR_ID_VALID_11329_VOLVO = 11329;
 
   public static final int CAR_ID_INVALID_0 = -10;
 
