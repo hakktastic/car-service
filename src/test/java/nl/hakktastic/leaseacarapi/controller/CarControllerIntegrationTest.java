@@ -189,7 +189,7 @@ public class CarControllerIntegrationTest {
 
     mockMvc
         .perform(
-            delete(URL_TEMPLATE_CARS + "/{id}", CAR_ID_VALID_2891)
+            delete(URL_TEMPLATE_CARS + "/{id}", CAR_ID_VALID_2891_FORD)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk());
@@ -211,7 +211,7 @@ public class CarControllerIntegrationTest {
 
     mockMvc
         .perform(
-            get(URL_TEMPLATE_CARS + "/{id}", CAR_ID_VALID_11329)
+            get(URL_TEMPLATE_CARS + "/{id}", CAR_ID_VALID_11329_VOLVO)
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
