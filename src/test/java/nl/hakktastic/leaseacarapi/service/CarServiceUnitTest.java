@@ -57,7 +57,7 @@ public class CarServiceUnitTest {
     when(carRepository.findById(any(Integer.class)))
         .thenReturn(Optional.ofNullable(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER));
 
-    var car = carService.getSingleCar(CAR_ID_VALID_2891);
+    var car = carService.getSingleCar(CAR_ID_VALID_2891_FORD);
     assertThat(car.get()).isNotNull().isEqualTo(CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER);
     assertThat(car.get().getMake()).isEqualTo(MAKE_VALID_LAND_ROVER);
   }
