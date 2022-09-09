@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /** Rest Controller for Car Service. */
@@ -25,11 +26,11 @@ public class CarController {
    * @return Returns a {@link Car} Entity
    */
   @PostMapping(path = "/cars", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Car> createCar(@RequestBody Car car) {
+  public ResponseEntity<Car> createCar(@RequestBody @Valid Car car) {
 
     log.info("create car --> starting creation of car -> {}", car);
 
-    var optionalCar = carService.createCar(car);
+    var optionalCar = this.carService.createCar(car);
     var status = (optionalCar.isPresent()) ? HttpStatus.CREATED : HttpStatus.NOT_FOUND;
 
     log.info(
@@ -45,19 +46,19 @@ public class CarController {
    * Delete Car Entity.
    *
    * @param id ID of Car Entity
-   * @return Returns HTTP Response Code 202 Accepted if Car is deleted
+   * @return Returns HTTP Response OK if Car is deleted, otherwise NO_CONTENT
    */
   @DeleteMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Object> deleteCar(@PathVariable int id) {
+  public ResponseEntity<Object> deleteCar(@PathVariable @Valid int id) {
 
     log.info("delete car --> starting deletion of car with id-> {}", id);
 
-    carService.deleteCar(id);
+    var isCarDeleted = carService.deleteCar(id);
+    var status = (isCarDeleted) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
-    log.info(
-        "delete car --> response code -> {} ({})", HttpStatus.OK.value(), HttpStatus.OK.name());
+    log.info("delete car --> response code -> {} ({})", status.value(), status.name());
 
-    return new ResponseEntity<>("Car deleted successsfully", HttpStatus.OK);
+    return new ResponseEntity<>("", status);
   }
 
   /**
@@ -67,12 +68,12 @@ public class CarController {
    * @return Returns a {@link Car} entity
    */
   @GetMapping(path = "/cars/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Car> getCar(@PathVariable int id) {
+  public ResponseEntity<Car> getCar(@PathVariable @Valid int id) {
 
     log.info("get car --> starting retrieval of car with id -> {}", id);
 
-    var optionalCar = carService.getSingleCar(id);
-    var status = (optionalCar.isPresent()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
+    var optionalCar = this.carService.getSingleCar(id);
+    var status = (optionalCar.isPresent()) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
     log.info(
         "get car --> response code -> {} ({}) - response body -> {} ",
@@ -93,8 +94,8 @@ public class CarController {
 
     log.info("get cars --> starting retrieval of all cars");
 
-    var carEntityList = carService.getAllCars();
-    HttpStatus status = (!carEntityList.isEmpty()) ? HttpStatus.OK : HttpStatus.NO_CONTENT;
+    var carEntityList = this.carService.getAllCars();
+    HttpStatus status = (!carEntityList.isEmpty()) ? HttpStatus.OK : HttpStatus.NOT_FOUND;
 
     log.info(
         "get cars --> response code -> {} ({}) - nr of found cars -> {}",

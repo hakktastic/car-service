@@ -1,0 +1,18 @@
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (1001,'Abarth','500','1.4 T-Jet 595 Esseesse 70th Ann.',3,41555,25131,180);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (1016,'Alfa Romeo','Giulia','2.0T 200pk auto',4,42370,26871,200);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (1136,'Audi','A4 allroad quattro','45 TDI quattro Tiptronic',5,76000,46047,231);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (1251,'Audi','A6 allroad quattro','55 TFSI quattro S tronic Pro Line Plus',5,94600,64183,340);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (1629,'BMW','5 Serie Touring','M550dA xDrive',5,123190,81202,400);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (2191,'Dacia','Duster','TCe 150 GPF 4x2 Tech Road',5,23540,13085.95,150);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (2300,'Fiat','500','TwinAir Turbo Eco 85 120TH edition',3,20330,13465,85);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (2891,'Ford','Mustang','Convertible GT 5.0 V8 A10',2,117910,44448,450);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (4663,'Land Rover','Defender','3.0 P400 110 X',5,139485,83196.69,400);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (4677,'Land Rover','Discovery','2.0 Si4 HSE Luxury',5,120205,68680.99,300);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (5886,'Mercedes-Benz','G-Klasse','G 63 Mercedes-AMG',5,228919,129100,585);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (6603,'Nissan','GT-R','3.8 V6 Nismo',2,262400,153933.88,600);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (9732,'Skoda','Superb Combi','1.5 TSI ACT DSG L&K Executive',5,47835,34680,150);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (9793,'Subaru','Impreza','1.6i Luxury Lineartronic CVT 4WD',5,33496,19182,114);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (10966,'Volkswagen','Passat Variant','2.0 TSI Elegance Business R 7-DSG 4M',5,54220,32939,272);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (11292,'Volvo','XC40','T5 Twin Engine Geartronic Inscription',5,48895,38992.56,261);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (11312,'Volvo','XC60','T8 Polestar Engineered',5,83795,65371.07,407);
+insert into car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) values (11329,'Volvo','XC90','T8 Twin Eng AWD Geartr Inscription Intro',5,90695,71969.42,390);
