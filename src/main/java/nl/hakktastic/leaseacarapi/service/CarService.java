@@ -22,18 +22,24 @@ public class CarService {
    */
   public Optional<Car> createCar(Car car) {
 
-    return Optional.of(this.repository.save(car));
+    return Optional.of(repository.save(car));
   }
 
   /**
    * Delete a {@link Car} entity.
    *
    * @param id ID of the car to be deleted
+   * @return Returns @{@code TRUE} if {@link Car} entity is deleted, othwerise {@code FALSE}
    */
-  public void deleteCar(int id) {
+  public boolean deleteCar(int id) {
 
-    var carEntity = this.repository.getReferenceById(id);
-    this.repository.delete(carEntity);
+    if (repository.existsById(id)) {
+
+      repository.deleteById(id);
+      return true;
+    }
+
+    return false;
   }
 
   /**
@@ -44,7 +50,7 @@ public class CarService {
    */
   public Optional<Car> getSingleCar(int id) {
 
-    return this.repository.findById(id);
+    return repository.findById(id);
   }
 
   /**
@@ -54,6 +60,6 @@ public class CarService {
    */
   public List<Car> getAllCars() {
 
-    return this.repository.findAll();
+    return repository.findAll();
   }
 }
