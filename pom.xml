@@ -11,7 +11,7 @@
 
     <groupId>nl.hakktastic.leaseacarapi</groupId>
     <artifactId>car-service</artifactId>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
     <name>Car Service</name>
     <description>Car Service for the Lease a Car API</description>
 
