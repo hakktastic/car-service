@@ -11,7 +11,7 @@
 
     <groupId>nl.hakktastic.leaseacarapi</groupId>
     <artifactId>car-service</artifactId>
-    <version>0.6.0</version>
+    <version>0.6.1</version>
     <name>Car Service</name>
     <description>Car Service for the Lease a Car API</description>
 
@@ -52,6 +52,10 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
