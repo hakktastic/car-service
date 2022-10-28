@@ -1,17 +1,47 @@
 package nl.hakktastic.leaseacarapi.controller;
 
-import com.google.gson.Gson;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_INVALID_0;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_VALID_11329_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_VALID_2891_FORD;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_GROSS_PRICE;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_HP;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MAKE_INVALID_TOO_LONG;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MAKE_INVALID_TOO_SHORT;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MODEL_TOO_LONG;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MODEL_TOO_SHORT;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NETT_PRICE;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NO_ARGS;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NR_OF_DOORS_1;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NR_OF_DOORS_6;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_VERSION_TOO_LONG;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_VERSION_TOO_SHORT;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_VALID_ALL_ARGS_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.GROSS_PRICE_VALID_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.GROSS_PRICE_VALID_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.HP_VALID_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.HP_VALID_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.MAKE_VALID_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.MAKE_VALID_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.MODEL_VALID_DISCOVERY;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.MODEL_VALID_XC90;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.NETT_PRICE_VALID_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.NETT_PRICE_VALID_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.NR_OF_DOORS_VALID_5;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.VERSION_VALID_DISCOVERY;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.VERSION_VALID_XC90;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static nl.hakktastic.leaseacarapi.testdata.CarTestData.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.google.gson.Gson;
 
 @SpringBootTest
 @AutoConfigureMockMvc
