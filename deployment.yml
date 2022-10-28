@@ -19,12 +19,33 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - image: hakktastic/car-service:0.6.0
+      - image: hakktastic/car-service:0.7.0
         imagePullPolicy: Always
         name: car-service
         ports:
         - containerPort: 8082
           protocol: TCP
+        env:
+        - name: MARIADB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-configmap
+              key: mariadb-host
+        - name: MARIADB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-configmap
+              key: mariadb-port
+        - name: MARIADB_USER
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mariadb-user
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mariadb-password
         livenessProbe:
           httpGet:
             path: /car-service/actuator/health/liveness
