@@ -3,6 +3,7 @@ package nl.hakktastic.leaseacarapi.controller;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,8 @@ import nl.hakktastic.leaseacarapi.service.CarService;
 public class CarController {
 
   @Autowired private CarService carService;
+  
+  @Autowired private DiscoveryClient discoveryClient;
 
   /**
    * Create Car Entity.
