@@ -28,12 +28,12 @@ spec:
         env:
         - name: MARIADB_HOST
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               name: mariadb-configmap
               key: mariadb-host
         - name: MARIADB_PORT
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               name: mariadb-configmap
               key: mariadb-port
         - name: MARIADB_USER
