@@ -42,7 +42,7 @@ pipeline {
               claimName: kaniko-cache
           - name: m2-cache
             persistentVolumeClaim:
-            claimName: maven-m2-cache
+              claimName: maven-m2-cache
         """
         }
     }
