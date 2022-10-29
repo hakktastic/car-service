@@ -2,11 +2,10 @@ package nl.hakktastic.leaseacarapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /** Car service application. */
 @SpringBootApplication
-@EnableDiscoveryClient
+// @EnableDiscoveryClient
 public class CarServiceApplication {
 
   /**
