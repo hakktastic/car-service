@@ -41,7 +41,7 @@ pipeline {
             steps {
                 container(name: 'maven') {
 
-                    sh 'mvn clean package'
+                    sh 'mvn clean package -DskipTests=true'
 
                     script {
                         TAG_SELECTOR = readMavenPom().getVersion()
