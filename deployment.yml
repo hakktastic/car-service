@@ -26,16 +26,11 @@ spec:
         - containerPort: 8082
           protocol: TCP
         env:
-        - name: MARIADB_HOST
+        - name: MARIADB_HOST_PORT
           valueFrom:
             configMapKeyRef:
               name: mariadb-configmap
-              key: mariadb-host
-        - name: MARIADB_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: mariadb-configmap
-              key: mariadb-port
+              key: mariadb-host-port
         - name: MARIADB_USER
           valueFrom:
             secretKeyRef:
