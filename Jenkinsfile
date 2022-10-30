@@ -22,6 +22,7 @@ pipeline {
                 mountPath: /image-cache
           - name: maven
             image: maven:3.8.5-openjdk-17-slim
+            imagePullPolicy: IfNotPresent
             command:
             - cat
             tty: true
