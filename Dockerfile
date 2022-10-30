@@ -1,5 +1,5 @@
 FROM alpine:latest
-RUN apk add --no-cache openjdk17
+RUN apk add --no-cache openjdk17-jre-headless
 EXPOSE 8082
 ARG DEPENDENCY=target/dependency
 COPY ${DEPENDENCY}/BOOT-INF/lib /app/lib
