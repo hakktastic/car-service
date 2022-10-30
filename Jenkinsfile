@@ -21,7 +21,7 @@ pipeline {
               - name: image-cache
                 mountPath: /image-cache
           - name: maven
-            image: maven:3.8.6-eclipse-temurin-17-alpine
+            image: maven:3.8.5-openjdk-17-slim
             imagePullPolicy: IfNotPresent
             command:
             - cat
