@@ -1,6 +1,26 @@
 package nl.hakktastic.leaseacarapi.controller;
 
-import nl.hakktastic.leaseacarapi.service.CarService;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_INVALID_0;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_VALID_11329_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_VALID_2891_FORD;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_GROSS_PRICE;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MAKE_INVALID_TOO_LONG;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MAKE_INVALID_TOO_SHORT;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MODEL_TOO_LONG;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_MODEL_TOO_SHORT;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NETT_PRICE;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NO_ARGS;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NR_OF_DOORS_1;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_NR_OF_DOORS_6;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_VERSION_TOO_LONG;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_INVALID_VERSION_TOO_SHORT;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_VALID_ALL_ARGS_VOLVO;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,14 +28,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import static nl.hakktastic.leaseacarapi.testdata.CarTestData.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.when;
+import nl.hakktastic.leaseacarapi.service.CarService;
 
 @ExtendWith(MockitoExtension.class)
 public class CarControllerUnitTest {

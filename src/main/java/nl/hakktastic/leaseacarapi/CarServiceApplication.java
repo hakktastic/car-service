@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /** Car service application. */
 @SpringBootApplication
+// @EnableDiscoveryClient
 public class CarServiceApplication {
 
   /**

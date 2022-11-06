@@ -1,21 +1,24 @@
 package nl.hakktastic.leaseacarapi.service;
 
-import nl.hakktastic.leaseacarapi.entity.Car;
-import nl.hakktastic.leaseacarapi.repository.CarRepository;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_INVALID_0;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_VALID_1001;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_ID_VALID_2891_FORD;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_VALID_ALL_ARGS_LAND_ROVER;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.CAR_OBJECT_VALID_ALL_ARGS_VOLVO;
+import static nl.hakktastic.leaseacarapi.testdata.CarTestData.MAKE_VALID_LAND_ROVER;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-
-import static nl.hakktastic.leaseacarapi.testdata.CarTestData.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import nl.hakktastic.leaseacarapi.entity.Car;
+import nl.hakktastic.leaseacarapi.repository.CarRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class CarServiceUnitTest {
