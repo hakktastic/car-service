@@ -34,4 +34,4 @@ INSERT INTO car (id,make,model,version,number_of_doors,gross_price,nett_price,hp
 INSERT INTO car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) VALUES (11293,'Volvo','XC60','T8 Twin Engine AWD Hybrid Inscription',5,74795,59557.02,390);
 INSERT INTO car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) VALUES (11294,'Volvo','XC60','T8 Twin Engine AWD Hybrid R-Design',5,74795,59557.02,390);
 INSERT INTO car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) VALUES (11316,'Volvo','XC90','T8 AWD Geartr Plug-in Hybrid R-Design',5,86695,68663.64,390);
-INSERT INTO car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) VALUES (11317,'Volvo','XC90','T8 AWD Geartr Plug-in Hybrid Inscription',5,86695,68663.64,390);ß
+INSERT INTO car (id,make,model,version,number_of_doors,gross_price,nett_price,hp) VALUES (11317,'Volvo','XC90','T8 AWD Geartr Plug-in Hybrid Inscription',5,86695,68663.64,390);
